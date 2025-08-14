@@ -1,0 +1,14 @@
+# Production-only deployment configuration
+# This file contains ONLY production commands to avoid security blocks
+
+[deployment]
+build = ["node", "simple-deploy.mjs"]
+run = ["node", "production-start.mjs"]
+deploymentTarget = "autoscale"
+ignoreBuildErrors = false
+
+[env]
+NODE_ENV = "production"
+
+[nix]
+channel = "stable-22_11"

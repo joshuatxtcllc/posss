@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jay's Frames POS</title>
+    <style>
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .loading-fallback {
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100vh; 
+        font-family: system-ui;
+        text-align: center;
+      }
+      .spinner {
+        width: 40px; 
+        height: 40px; 
+        border: 4px solid #f3f3f3; 
+        border-top: 4px solid #3498db; 
+        border-radius: 50%; 
+        animation: spin 2s linear infinite; 
+        margin: 0 auto 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading-fallback">
+        <div>
+          <div class="spinner"></div>
+          <h2>Jay's Frames POS</h2>
+          <p>Loading your application...</p>
+          <p><small>If this screen persists more than 10 seconds, please refresh the page</small></p>
+          <div style="margin-top: 20px;">
+            <button onclick="window.location.reload()" style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Detect JavaScript errors early
+      window.addEventListener('error', function(e) {
+        console.error('Early JavaScript error:', e.error);
+        const loadingElement = document.querySelector('.loading-fallback');
+        if (loadingElement) {
+          loadingElement.innerHTML = `
+            <div style="text-align: center;">
+              <h2 style="color: #dc3545;">JavaScript Error Detected</h2>
+              <p>Error: ${e.message}</p>
+              <p>File: ${e.filename}:${e.lineno}</p>
+              <button onclick="window.location.reload()" style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 10px;">
+                Reload Page
+              </button>
+              <details style="margin-top: 20px;">
+                <summary>Technical Details</summary>
+                <pre style="text-align: left; background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 4px; overflow: auto;">
+Error: ${e.error?.stack || e.message}
+URL: ${window.location.href}
+User Agent: ${navigator.userAgent}
+                </pre>
+              </details>
+            </div>
+          `;
+        }
+      });
+
+      // Add timeout to detect infinite loading
+      setTimeout(() => {
+        const loadingElement = document.querySelector('.loading-fallback');
+        if (loadingElement && loadingElement.style.display !== 'none') {
+          console.error('Application failed to load within 30 seconds');
+          loadingElement.innerHTML = `
+            <div>
+              <h2>Loading Timeout</h2>
+              <p>The app is taking longer than expected to load.</p>
+              <p>Server URL: ${window.location.href}</p>
+              <p>This might be due to slow network or JavaScript errors.</p>
+              <button onclick="window.location.reload()" style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 10px;">
+                Force Reload
+              </button>
+            </div>
+          `;
+        }
+      }, 30000);
+    </script>
+  </body>
+</html>
