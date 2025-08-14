@@ -1,8 +1,15 @@
 {
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
     "@sendgrid/mail": "^8.1.5",
+    "@supabase/supabase-js": "^2.55.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.539.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "twilio": "^5.8.0"
+    "tailwind-merge": "^3.3.1",
+    "twilio": "^5.8.0",
+    "wouter": "^3.7.1"
   }
 }
