@@ -160,7 +160,7 @@ export function FramingPOS() {
     const backingMaterial = materials.find(m => m.sku === orderSpecs.backingType);
 
     const framePrice = frameMaterial ? frameMaterial.unit_price * perimeter : 0;
-    const matPrice = matMaterial ? matMaterial.unit_price * finishedArea : 0;
+    const matPrice = (matMaterial && orderSpecs.matType !== 'none') ? matMaterial.unit_price * finishedArea : 0;
     const glassPrice = glassMaterial ? glassMaterial.unit_price * finishedArea : 0;
     const backingPrice = backingMaterial ? backingMaterial.unit_price * finishedArea : 0;
 
@@ -228,7 +228,7 @@ export function FramingPOS() {
           priority: orderSpecs.priority,
           special_instructions: orderSpecs.specialInstructions,
           frame_price: pricing.breakdown.framePrice,
-          mat_price: pricing.breakdown.matPrice,
+          mat_price: orderSpecs.matType === 'none' ? 0 : pricing.breakdown.matPrice,
           glass_price: pricing.breakdown.glassPrice,
           backing_price: pricing.breakdown.backingPrice,
           labor_price: pricing.breakdown.laborPrice,
@@ -574,7 +574,7 @@ export function FramingPOS() {
                         <SelectValue placeholder="Select mat..." />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">No Mat</SelectItem>
+                        <SelectItem value="none">No Mat</SelectItem>
                         {getMaterialsByCategory('mats').map(mat => (
                           <SelectItem key={mat.id} value={mat.sku}>
                             {mat.name} - {formatCurrency(mat.unit_price)}/sq ft
@@ -654,7 +654,7 @@ export function FramingPOS() {
                           <span>Frame:</span>
                           <span>{formatCurrency(pricing.breakdown.framePrice)}</span>
                         </div>
-                        {pricing.breakdown.matPrice > 0 && (
+                        {pricing.breakdown.matPrice > 0 && orderSpecs.matType !== 'none' && (
                           <div className="flex justify-between">
                             <span>Mat Board:</span>
                             <span>{formatCurrency(pricing.breakdown.matPrice)}</span>
