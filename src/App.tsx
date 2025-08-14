@@ -3,7 +3,7 @@ import { Route, Switch } from 'wouter';
 import { useAuth } from './hooks/useAuth';
 import { LoginPage } from './components/auth/LoginPage';
 import { SignupPage } from './components/auth/SignupPage';
-import { PricingPage } from './components/PricingPage';
+import { FramingPOS } from './components/FramingPOS';
 import { SuccessPage } from './components/SuccessPage';
 import { OrderHistory } from './components/OrderHistory';
 import { Loader2 } from 'lucide-react';
@@ -25,15 +25,15 @@ function App() {
   return (
     <Switch>
       <Route path="/login">
-        {user ? <PricingPage /> : <LoginPage />}
+        {user ? <FramingPOS /> : <LoginPage />}
       </Route>
       
       <Route path="/signup">
-        {user ? <PricingPage /> : <SignupPage />}
+        {user ? <FramingPOS /> : <SignupPage />}
       </Route>
       
       <Route path="/pricing">
-        <PricingPage />
+        <FramingPOS />
       </Route>
       
       <Route path="/success">
@@ -45,7 +45,7 @@ function App() {
       </Route>
       
       <Route path="/">
-        <PricingPage />
+        <FramingPOS />
       </Route>
       
       <Route>
@@ -53,8 +53,8 @@ function App() {
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Page Not Found</h1>
             <p className="text-gray-600 mb-6">The page you're looking for doesn't exist.</p>
-            <a href="/pricing" className="text-blue-600 hover:text-blue-500">
-              Return to Services
+            <a href="/" className="text-blue-600 hover:text-blue-500">
+              Return to POS System
             </a>
           </div>
         </div>
