@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'wouter';
+import { Route, Switch } from 'wouter';
 import { useAuth } from './hooks/useAuth';
 import { LoginPage } from './components/auth/LoginPage';
 import { SignupPage } from './components/auth/SignupPage';
@@ -25,11 +25,11 @@ function App() {
   return (
     <Switch>
       <Route path="/login">
-        {user ? <Redirect to="/pricing" /> : <LoginPage />}
+        {user ? <PricingPage /> : <LoginPage />}
       </Route>
       
       <Route path="/signup">
-        {user ? <Redirect to="/pricing" /> : <SignupPage />}
+        {user ? <PricingPage /> : <SignupPage />}
       </Route>
       
       <Route path="/pricing">
@@ -37,15 +37,15 @@ function App() {
       </Route>
       
       <Route path="/success">
-        {user ? <SuccessPage /> : <Redirect to="/login" />}
+        {user ? <SuccessPage /> : <LoginPage />}
       </Route>
       
       <Route path="/orders">
-        {user ? <OrderHistory /> : <Redirect to="/login" />}
+        {user ? <OrderHistory /> : <LoginPage />}
       </Route>
       
       <Route path="/">
-        <Redirect to="/pricing" />
+        <PricingPage />
       </Route>
       
       <Route>
